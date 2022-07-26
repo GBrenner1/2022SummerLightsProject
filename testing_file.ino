@@ -73,13 +73,13 @@ void masterOfPuppets() {
   colorWipe(strip.Color(255,   0,   0), 1);
   delay(950);
   strip.clear();
-  setGroup(0, strip.Color(255, 0, 0), 20);
+  setGroup(0, strip.Color(255, 0, 0), 30);
   delay(250);
   strip.clear();
-  setGroup(1, strip.Color(255, 0, 0), 20);
+  setGroup(1, strip.Color(255, 0, 0), 30);
   delay(250);
   strip.clear();
-  setGroup(2, strip.Color(255, 0, 0), 20);
+  setGroup(2, strip.Color(255, 0, 0), 30);
   delay(1550);
   strip.clear();
   setGroup(0, strip.Color(255, 0, 0), 100);
@@ -95,13 +95,13 @@ void masterOfPuppets() {
   strip.clear();
   onOff(strip.Color(255, 0, 0), 50, 10);
   strip.clear();
-  setGroup(0, strip.Color(255, 0, 0), 20);
+  setGroup(0, strip.Color(255, 0, 0), 30);
   delay(250);
   strip.clear();
-  setGroup(1, strip.Color(255, 0, 0), 20);
+  setGroup(1, strip.Color(255, 0, 0), 30);
   delay(250);
   strip.clear();
-  setGroup(2, strip.Color(255, 0, 0), 20);
+  setGroup(2, strip.Color(255, 0, 0), 30);
   delay(250);
   strip.clear();
   onOff(strip.Color(255, 0, 0), 50, 20);
@@ -111,6 +111,7 @@ void masterOfPuppets() {
   strip.clear();
   setGroup(1, strip.Color(255, 0, 0), 40);
   delay(250);
+  strip.clear();
 }
 
 void wizardsInWinter() {
