@@ -50,7 +50,7 @@ void loop() {
   //  singingGroup(strip.Color(0, 255, 255), 2, 250, 12); //christ-
   //  singingGroup(strip.Color(255, 255, 0), 0, 250, 12); //-mas
 
-  //trailGroups(15, 500, 6);
+  //trailGroups(15, 500, 6, strip.Color(255, 255, 0), strip.Color(0, 255, 0));
 
   //onOff(strip.Color(50, 0, 255), 250);
 
@@ -130,10 +130,10 @@ void wizardsInWinter() {
   trailGroups(4, 190, 20, strip.Color(255, 255, 255), strip.Color(10 , 10, 255));
   delay(100);
   strip.clear();
-  trailGroups(5, 175, 16, strip.Color(255,0,0), strip.Color(0,255,0));
+  trailGroups(5, 175, 16, strip.Color(255, 0, 0), strip.Color(0, 255, 0));
   delay(100);
   strip.clear();
-  trailGroups(6, 170, 14, strip.Color(0,255,0), strip.Color(255,0,0));
+  trailGroups(6, 170, 14, strip.Color(0, 255, 0), strip.Color(255, 0, 0));
   delay(100);
   trailGroups(4, 190, 20, strip.Color(255, 255, 255), strip.Color(10 , 10, 255));
   delay(100);
@@ -150,10 +150,10 @@ void wizardsInWinter() {
   trailGroups(4, 190, 20, strip.Color(255, 255, 255), strip.Color(10 , 10, 255));
   delay(100);
   strip.clear();
-  trailGroups(5, 175, 16, strip.Color(255,0,0), strip.Color(0,255,0));
+  trailGroups(5, 175, 16, strip.Color(255, 0, 0), strip.Color(0, 255, 0));
   delay(100);
   strip.clear();
-  trailGroups(6, 170, 14, strip.Color(0,255,0), strip.Color(255,0,0));
+  trailGroups(6, 170, 14, strip.Color(0, 255, 0), strip.Color(255, 0, 0));
 
 }
 
