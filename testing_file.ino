@@ -10,7 +10,7 @@ Adafruit_NeoPixel strip(LED_COUNT, LED_PIN, NEO_GRB + NEO_KHZ800);
 void setup() {
   strip.begin();
   strip.show();
-  strip.setBrightness(50);
+  strip.setBrightness(100);
 }
 
 void loop() {
