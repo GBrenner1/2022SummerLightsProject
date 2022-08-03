@@ -10,17 +10,24 @@ Adafruit_NeoPixel strip(LED_COUNT, LED, NEO_GRB + NEO_KHZ800);
 // when a MIDI NOTE ON message is received.
 // It will be passed bytes for Channel, Pitch, and Velocity
 void MyHandleNoteOn(byte channel, byte pitch, byte velocity) {
-  int light = pitch - 20;
+  int light = pitch - 36;
   strip.setPixelColor(light, strip.Color(0, 0, 255));
-  //setGroup(light, strip.Color(0,0,255), 5);
+  //setGroup(light, strip.Color(0,0,255), 2);
   strip.show();
   //digitalWrite(LED,HIGH);  //Turn LED on
-  if (velocity == 0) {//A NOTE ON message with a velocity = Zero is actualy a NOTE OFF
+  if (velocity == 0) { //A NOTE ON message with a velocity = Zero is actualy a NOTE OFF
     strip.setPixelColor(light, strip.Color(0, 0, 0));
-    //setGroup(light, strip.Color(0,0,0), 5);
     strip.show();
+    //setGroup(light, strip.Color(0,0,0), 2);
     //digitalWrite(LED,LOW);//Turn LED off
+    //strip.clear();
   }
+}
+
+void MyHandleNoteOff(byte channel, byte pitch, byte velocity) {
+  int light = pitch - 36;
+  strip.setPixelColor(light, strip.Color(0, 0, 0));
+  strip.show();
 }
 
 void setup() {
@@ -31,7 +38,8 @@ void setup() {
   Serial.begin(115200); // Initialize the Midi Library.
   // OMNI sets it to listen to all channels.. MIDI.begin(2) would set it
   // to respond to channel 2 notes only.
-  MIDI.setHandleNoteOn(MyHandleNoteOn); // This is important!! This command
+  MIDI.setHandleNoteOn(MyHandleNoteOn);
+  MIDI.setHandleNoteOff(MyHandleNoteOff);// This is important!! This command
   // tells the Midi Library which function I want called when a Note ON command
   // is received. in this case it's "MyHandleNoteOn".
 }
