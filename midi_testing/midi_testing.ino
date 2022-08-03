@@ -1,5 +1,5 @@
 #include <MIDI.h>  // Add Midi Library
-#include <Adafruit_NeoPixel.h>
+#include<Adafruit_NeoPixel.h>
 
 #define LED 6  // Arduino Board LED is on Pin 13
 #define LED_COUNT 80
@@ -11,13 +11,14 @@ Adafruit_NeoPixel strip(LED_COUNT, LED, NEO_GRB + NEO_KHZ800);
 // It will be passed bytes for Channel, Pitch, and Velocity
 void MyHandleNoteOn(byte channel, byte pitch, byte velocity) {
   int light = pitch - 36;
-  strip.setPixelColor(light, strip.Color(0, 0, 255));
+  pulseFromNote(light,strip.Color(0,0,255), 10);
+  //strip.setPixelColor(light, strip.Color(0, 0, 255));
+  //strip.show();
   //setGroup(light, strip.Color(0,0,255), 2);
-  strip.show();
   //digitalWrite(LED,HIGH);  //Turn LED on
   if (velocity == 0) { //A NOTE ON message with a velocity = Zero is actualy a NOTE OFF
-    strip.setPixelColor(light, strip.Color(0, 0, 0));
-    strip.show();
+    //strip.setPixelColor(light, strip.Color(0, 0, 0));
+    //strip.show();
     //setGroup(light, strip.Color(0,0,0), 2);
     //digitalWrite(LED,LOW);//Turn LED off
     //strip.clear();
@@ -54,4 +55,21 @@ void setGroup(uint8_t g, uint32_t c, int groupSize) {
     strip.setPixelColor(firstPixel + i, c);
   }
   strip.show();
+}
+
+void pulseFromNote(int startNote, uint32_t color, int wait) {
+  strip.setPixelColor(startNote, color);
+  strip.show();
+  delay(wait);
+  strip.setPixelColor(startNote, strip.Color(0,0,0));
+  strip.show();
+  for (int i = 1; i < LED_COUNT; i++) {
+    strip.setPixelColor(startNote + i, color);
+    strip.setPixelColor(startNote - i, color);
+    strip.show();
+    delay(wait);
+    strip.setPixelColor(startNote + i, strip.Color(0,0,0));
+    strip.setPixelColor(startNote - i, strip.Color(0,0,0));
+    strip.show();
+  }
 }
