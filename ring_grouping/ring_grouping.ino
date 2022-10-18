@@ -1,11 +1,13 @@
-#ifdef __AVR__
+ #ifdef __AVR__
 #include <avr/power.h> // Required for 16 MHz Adafruit Trinket
 #include<Adafruit_NeoPixel.h>
 #endif
 
 //Light strip pin numbers on arduino board
 #define RING_STRIP_PIN 6
-#define BRANCH_STRIP_PIN 4
+#define BRANCH_ONE_STRIP_PIN 4
+#define BRANCH_TWO_STRIP_PIN 2
+#define BRANCH_THREE_STRIP_PIN 8
 
 //Count of lights per over all strip
 #define RING_STRIP_LED_COUNT 200
@@ -26,7 +28,9 @@
 
 //light strips
 Adafruit_NeoPixel ring_strip(RING_STRIP_LED_COUNT, RING_STRIP_PIN, NEO_GRB + NEO_KHZ800);
-Adafruit_NeoPixel branch_strip(BRANCH_STRIP_LED_COUNT, BRANCH_STRIP_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel branch_one_strip(BRANCH_STRIP_LED_COUNT, BRANCH_ONE_STRIP_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel branch_two_strip(BRANCH_STRIP_LED_COUNT, BRANCH_TWO_STRIP_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel branch_three_strip(BRANCH_STRIP_LED_COUNT, BRANCH_THREE_STRIP_PIN, NEO_GRB + NEO_KHZ800);
 
 //Subarray's for rings on ring_strip
 int large_ring[LARGE_RING_SIZE];
@@ -35,11 +39,18 @@ int small_ring[SMALL_RING_SIZE];
 
 void setup() {
   ring_strip.setBrightness(BRIGHTNESS);
-  branch_strip.setBrightness(BRIGHTNESS);
+  branch_one_strip.setBrightness(BRIGHTNESS);
+  branch_two_strip.setBrightness(BRIGHTNESS);
+  branch_three_strip.setBrightness(BRIGHTNESS);
   ring_strip.begin();
-  branch_strip.begin();
+  branch_one_strip.begin();
+  branch_two_strip.begin();
+  branch_three_strip.begin();
   ring_strip.show();
-  branch_strip.show();
+  branch_one_strip.show();
+  branch_two_strip.show();
+  branch_three_strip.show();
+
 
   for (int i = 0; i <= LARGE_RING_SIZE; i++) {
     large_ring[i] = i + LARGE_RING_START;
@@ -55,27 +66,8 @@ void setup() {
 }
 
 void loop() {
-  pinMode(RING_STRIP_PIN, OUTPUT);
-  create_rings(ring_strip.Color(255, 0, 255), ring_strip.Color(0, 255, 0), ring_strip.Color(0, 255, 255));
-  pinMode(BRANCH_STRIP_PIN, OUTPUT);
-  colorWipe(branch_strip.Color(0, 255, 0), 50, branch_strip);
-  pinMode(BRANCH_STRIP_PIN, OUTPUT);
-  colorWipe(branch_strip.Color(255, 0, 0), 50, branch_strip);
-  pinMode(BRANCH_STRIP_PIN, OUTPUT);
-  colorWipe(branch_strip.Color(0, 0, 255), 50, branch_strip);
-  pinMode(RING_STRIP_PIN, OUTPUT);
-  create_rings(ring_strip.Color(0, 0, 255), ring_strip.Color(255, 255, 255), ring_strip.Color(0, 0, 255));
-  pinMode(BRANCH_STRIP_PIN, OUTPUT);
-  colorWipe(branch_strip.Color(0, 255, 0), 50, branch_strip);
-  pinMode(BRANCH_STRIP_PIN, OUTPUT);
-  colorWipe(branch_strip.Color(255, 0, 0), 50, branch_strip);
-  pinMode(BRANCH_STRIP_PIN, OUTPUT);
-  colorWipe(branch_strip.Color(0, 0, 255), 50, branch_strip);
-  pinMode(RING_STRIP_PIN, OUTPUT);
-  create_rings(ring_strip.Color(255, 255, 255), ring_strip.Color(0, 0, 255),  ring_strip.Color(0, 255, 0));
-  pinMode(BRANCH_STRIP_PIN, OUTPUT);
-  theaterChaseRainbow(100, branch_strip);
-  branch_strip.clear();
+  blinkingStartLight();
+  christmasMedley();
 }
 
 void create_rings(uint32_t ring_one_color, uint32_t ring_two_color, uint32_t ring_three_color) {
@@ -107,7 +99,7 @@ void theaterChaseRainbow(int wait, Adafruit_NeoPixel lights) {
     }
   }
 }
-
+  
 void colorWipe(uint32_t color, int wait, Adafruit_NeoPixel lights) {
   for (int i = 0; i < lights.numPixels(); i++) {
     lights.setPixelColor(i, color);
@@ -115,3 +107,83 @@ void colorWipe(uint32_t color, int wait, Adafruit_NeoPixel lights) {
     delay(wait);
   }
 }
+void blinkingStartLight() {
+  branch_one_strip.setPixelColor(0, branch_one_strip.Color(255, 0, 0));
+  branch_one_strip.show();
+  delay(1000);
+  branch_one_strip.setPixelColor(0, branch_one_strip.Color(255, 255, 0));
+  branch_one_strip.show();
+  delay(1000);
+  branch_one_strip.setPixelColor(0, branch_one_strip.Color(0, 255, 0));
+  branch_one_strip.show();
+  delay(1000);
+}
+
+void colorWipeThreeBranch(uint32_t color, int wait) {
+  for (int i = 0; i < branch_one_strip.numPixels(); i++) {
+    pinMode(BRANCH_ONE_STRIP_PIN, OUTPUT);
+    branch_one_strip.setPixelColor(i, color);
+    pinMode(BRANCH_TWO_STRIP_PIN, OUTPUT);
+    branch_two_strip.setPixelColor(i, color);
+    pinMode(BRANCH_THREE_STRIP_PIN, OUTPUT);
+    branch_three_strip.setPixelColor(i, color);
+    branch_one_strip.show();
+    branch_two_strip.show();
+    branch_three_strip.show();
+    delay(wait);
+  }
+}
+
+
+void christmasMedley(){
+  colorWipeThreeBranch(branch_one_strip.Color(255,255,255),10);
+  pinMode(RING_STRIP_PIN, OUTPUT);
+  create_rings(ring_strip.Color(0, 0, 0), ring_strip.Color(0, 0, 0), ring_strip.Color(0, 255, 0));
+  delay(900);
+  pinMode(RING_STRIP_PIN, OUTPUT);
+  create_rings(ring_strip.Color(0, 0, 0), ring_strip.Color(0, 255, 0), ring_strip.Color(0, 0, 0));
+  delay(50);
+  pinMode(RING_STRIP_PIN, OUTPUT);
+  create_rings(ring_strip.Color(0, 255, 0), ring_strip.Color(0, 0, 0), ring_strip.Color(0, 0, 0));
+  delay(700);
+  pinMode(RING_STRIP_PIN, OUTPUT);
+  create_rings(ring_strip.Color(0, 0, 0), ring_strip.Color(0, 255, 0), ring_strip.Color(0, 0, 0));
+  delay(700);
+  pinMode(RING_STRIP_PIN, OUTPUT);
+  create_rings(ring_strip.Color(0, 255, 0), ring_strip.Color(0, 0, 0), ring_strip.Color(0, 255, 0));
+  delay(500);
+  pinMode(RING_STRIP_PIN, OUTPUT);
+  create_rings(ring_strip.Color(0, 0, 0), ring_strip.Color(0, 0, 0), ring_strip.Color(0, 0, 255));
+  delay(500);
+  pinMode(RING_STRIP_PIN, OUTPUT);
+  create_rings(ring_strip.Color(0, 0, 0), ring_strip.Color(0, 255, 0), ring_strip.Color(0, 0, 255));
+  delay(500);
+  pinMode(RING_STRIP_PIN, OUTPUT);
+  create_rings(ring_strip.Color(255, 255, 255), ring_strip.Color(0, 255, 0), ring_strip.Color(0, 0, 255));
+  delay(2500);
+  pinMode(BRANCH_ONE_STRIP_PIN, OUTPUT);
+  colorWipe(branch_one_strip.Color(0,255,0), 5, branch_one_strip);
+  delay(10);
+  pinMode(BRANCH_TWO_STRIP_PIN, OUTPUT);
+  colorWipe(branch_two_strip.Color(255,0,0), 5, branch_two_strip);
+  delay(10);
+  pinMode(BRANCH_THREE_STRIP_PIN, OUTPUT);
+  colorWipe(branch_three_strip.Color(0,0,255), 5, branch_three_strip);
+  delay(10);
+  pinMode(BRANCH_TWO_STRIP_PIN, OUTPUT);
+  colorWipe(branch_two_strip.Color(0,255,0), 5, branch_two_strip);
+  delay(10);
+  pinMode(BRANCH_ONE_STRIP_PIN, OUTPUT);
+  colorWipe(branch_one_strip.Color(255,0,0), 5, branch_one_strip);
+  delay(275);
+  pinMode(RING_STRIP_PIN, OUTPUT);
+  create_rings(ring_strip.Color(0, 0, 0), ring_strip.Color(0, 0, 0), ring_strip.Color(255, 0, 0));
+  delay(500);
+  pinMode(RING_STRIP_PIN, OUTPUT);
+  create_rings(ring_strip.Color(0, 0, 0), ring_strip.Color(255, 0, 0), ring_strip.Color(255, 0, 0));
+  delay(500);
+  pinMode(RING_STRIP_PIN, OUTPUT);
+  create_rings(ring_strip.Color(255, 0, 0), ring_strip.Color(255, 0, 0), ring_strip.Color(255, 0, 0));
+  delay(300);
+  colorWipeThreeBranch(ring_strip.Color(255, 255, 255), 10);
+  }
