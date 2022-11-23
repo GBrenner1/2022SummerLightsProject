@@ -72,7 +72,25 @@ void setup() {
 }
 
 void loop() {
-  winter_wonderland();
+   wizards_of_winter();
+   delay(100);
+   jingle_bells();
+   delay(100);
+   deck_the_halls();
+   delay(100);
+   most_wonderful_time();
+   delay(100);
+   sarajevo();
+   delay(100);
+   winter_wonderland();
+   delay(100);
+   frosty_the_snowman();
+   delay(100);
+   let_it_snow();
+   delay(100);
+   placeholder();
+   delay(202000);
+   
 }
 
 void create_rings(uint32_t top_ring_color, uint32_t upper_middle_color, uint32_t middle_ring_color, uint32_t lower_middle_color, uint32_t bottom_ring_color) {
@@ -98,58 +116,16 @@ void create_rings(uint32_t top_ring_color, uint32_t upper_middle_color, uint32_t
   ring_strip.show();
 }
 
-void five_rings_up_fill(uint32_t top_ring_color, uint32_t upper_middle_color, uint32_t middle_ring_color, uint32_t lower_middle_color, uint32_t bottom_ring_color, int delay_one, int delay_two){
-  delay(delay_one);
-  create_rings(ring_strip.Color(0,0,0), ring_strip.Color(0,0,0), ring_strip.Color(0,0,0), ring_strip.Color(0,0,0), bottom_ring_color);
-  delay(delay_two);
-  create_rings(ring_strip.Color(0,0,0), ring_strip.Color(0,0,0), ring_strip.Color(0,0,0), lower_middle_color, bottom_ring_color);
-  delay(delay_two);
-  create_rings(ring_strip.Color(0,0,0), ring_strip.Color(0,0,0), middle_ring_color, lower_middle_color, bottom_ring_color);
-  delay(delay_two);
-  create_rings(ring_strip.Color(0,0,0), upper_middle_color, middle_ring_color, lower_middle_color, bottom_ring_color);
-  delay(delay_two);
-  create_rings(top_ring_color, upper_middle_color, middle_ring_color, lower_middle_color,bottom_ring_color);  
-}
-
-void five_rings_down_filled(uint32_t top_ring_color, uint32_t upper_middle_color, uint32_t middle_ring_color, uint32_t lower_middle_color, uint32_t bottom_ring_color, int delay_one, int delay_two){
-  delay(delay_one);
-  create_rings(top_ring_color, ring_strip.Color(0,0,0), ring_strip.Color(0,0,0), ring_strip.Color(0,0,0), ring_strip.Color(0,0,0));
-  delay(delay_two);
-  create_rings(top_ring_color, upper_middle_color, ring_strip.Color(0,0,0), ring_strip.Color(0,0,0), ring_strip.Color(0,0,0));
-  delay(delay_two);
-  create_rings(top_ring_color, upper_middle_color, middle_ring_color, ring_strip.Color(0,0,0), ring_strip.Color(0,0,0));
-  delay(delay_two);
-  create_rings(top_ring_color, upper_middle_color, middle_ring_color, lower_middle_color, ring_strip.Color(0,0,0));
-  delay(delay_two);
-  create_rings(top_ring_color, upper_middle_color, middle_ring_color, lower_middle_color, bottom_ring_color);
-}
-
-void five_rings_down_unfill(uint32_t top_ring_color, uint32_t upper_middle_color, uint32_t middle_ring_color, uint32_t lower_middle_color, uint32_t bottom_ring_color, int delay_one, int delay_two){
-  delay(delay_one);
-  create_rings(top_ring_color, upper_middle_color, middle_ring_color, lower_middle_color, bottom_ring_color);
-  delay(delay_two);
-  create_rings(ring_strip.Color(0,0,0), upper_middle_color, middle_ring_color, lower_middle_color, bottom_ring_color);
-  delay(delay_two);
-  create_rings(ring_strip.Color(0,0,0), ring_strip.Color(0,0,0), middle_ring_color, lower_middle_color, bottom_ring_color);
-  delay(delay_two);
-  create_rings(ring_strip.Color(0,0,0), ring_strip.Color(0,0,0), ring_strip.Color(0,0,0), lower_middle_color, bottom_ring_color);
-  delay(delay_two);
-  create_rings(ring_strip.Color(0,0,0), ring_strip.Color(0,0,0), ring_strip.Color(0,0,0), ring_strip.Color(0,0,0), bottom_ring_color);
-}
-
-void theaterChaseRainbow(int wait, Adafruit_NeoPixel lights) {
+void theaterChase(int wait, Adafruit_NeoPixel lights) {
   int firstPixelHue = 0; 
-  for(int a=0; a<30; a++) { 
+  for(int a=0; a<100; a++) { 
     for(int b=0; b<3; b++) { 
       lights.clear();
       for(int c=b; c<lights.numPixels(); c += 3) {
-        int      hue   = firstPixelHue + c * 65536L / lights.numPixels();
-        uint32_t color = lights.gamma32(lights.ColorHSV(hue));
-        lights.setPixelColor(c, color); 
+        lights.setPixelColor(c, lights.Color(255,255,255)); 
       }
       lights.show();                
       delay(wait);                 
-      firstPixelHue += 65536 / 90; 
     }
   }
 }
@@ -171,17 +147,6 @@ void theaterChaseWhite(int wait) {
       delay(wait);
     }
   }
-}
-void blinkingStartLight() {
-  branch_one_strip.setPixelColor(0, branch_one_strip.Color(255, 0, 0));
-  branch_one_strip.show();
-  delay(1000);
-  branch_one_strip.setPixelColor(0, branch_one_strip.Color(255, 255, 0));
-  branch_one_strip.show();
-  delay(1000);
-  branch_one_strip.setPixelColor(0, branch_one_strip.Color(0, 255, 0));
-  branch_one_strip.show();
-  delay(1000);
 }
 
 void pulseFromNoteOn(int startNote, uint32_t color, int wait) {
@@ -211,6 +176,23 @@ void reversePulseFromNote(uint32_t color, int wait){
     }
     delay(wait);
   }  
+}
+
+void pulse_from_note(int startNote, uint32_t color, int wait){
+  branch_one_strip.setPixelColor(startNote, color);
+  branch_one_strip.show();
+  branch_one_strip.setPixelColor(startNote, branch_one_strip.Color(0, 0, 0));
+  branch_one_strip.show();
+  for (int i = 1; i < BRANCH_STRIP_LED_COUNT/2 + 10; i++) {
+    pinMode(BRANCH_ONE_STRIP_PIN, OUTPUT);
+    branch_one_strip.setPixelColor(startNote + i, color);
+    branch_one_strip.setPixelColor(startNote - i, color);
+    branch_one_strip.show();
+    delay(wait);
+    branch_one_strip.setPixelColor(startNote + i, branch_one_strip.Color(0, 0, 0));
+    branch_one_strip.setPixelColor(startNote - i, branch_one_strip.Color(0, 0, 0));
+    branch_one_strip.show();
+}
 }
 
 void pulseFromNoteOnWithRings(int startNote, uint32_t color, int wait) {
@@ -282,12 +264,6 @@ void pulseFromNoteOffWithRings(int startNote, int wait) {
     waitAddition = waitAddition * .95;
   }
 }
-
-void branch_fill_color(uint32_t color){
-  for(int i = 0; i < BRANCH_STRIP_LED_COUNT; i++){
-    branch_one_strip.setPixelColor(i, color);
-    }
-}
   
 void colorWipeBranch(uint32_t color, int wait) {
   for (int i = 0; i < branch_one_strip.numPixels(); i++) {
@@ -298,7 +274,9 @@ void colorWipeBranch(uint32_t color, int wait) {
 }
 
 void wizards_of_winter(){
-  theaterChaseWhite(100);
+  for(int i = 0; i < 18; i++){
+    theaterChaseWhite(100); 
+  }
 }
 
 void jingle_bells(){
@@ -317,6 +295,7 @@ void jingle_bells(){
 }
 
 void deck_the_halls(){
+  for(int i = 0; i < 142; i++){
   pinMode(BRANCH_ONE_STRIP_PIN, OUTPUT);
   pulseFromNoteOn(BRANCH_STRIP_LED_COUNT / 2 - 4, branch_one_strip.Color(255,0,0), 8);
   pinMode(RING_STRIP_PIN, OUTPUT);
@@ -328,15 +307,19 @@ void deck_the_halls(){
   delay(136);
   create_rings(ring_strip.Color(0,0,0),ring_strip.Color(0,0,0),ring_strip.Color(0,0,0),ring_strip.Color(0,0,0),ring_strip.Color(0,0,0));
   pinMode(BRANCH_ONE_STRIP_PIN, OUTPUT);
-  branch_one_strip.clear();   
+  branch_one_strip.clear(); 
+}  
 }
 
 void most_wonderful_time(){
-  pulseFromNoteOnWithRings(BRANCH_STRIP_LED_COUNT / 2 - 10,branch_one_strip.Color(255,255,255),10);
-  pulseFromNoteOffWithRings(BRANCH_STRIP_LED_COUNT / 2 - 10,10);  
+  for(int i = 0; i < 90; i++){
+    pulseFromNoteOnWithRings(BRANCH_STRIP_LED_COUNT / 2 - 10,branch_one_strip.Color(255,255,255),10);
+    pulseFromNoteOffWithRings(BRANCH_STRIP_LED_COUNT / 2 - 10,10);  
+  }
 }
 
 void sarajevo(){
+  for(int i = 0; i < 234; i++){
   reversePulseFromNote(branch_one_strip.Color(255,255,255), 2);
   create_rings(ring_strip.Color(0,255,0), ring_strip.Color(0,255,0), ring_strip.Color(0,0,255), ring_strip.Color(0,0,0), ring_strip.Color(0,0,0));
   delay(241);
@@ -344,10 +327,11 @@ void sarajevo(){
   delay(241);
   branch_one_strip.clear();
   ring_strip.clear();  
+  }
 }
 
 void winter_wonderland(){
-  for(int count = 0; count < 170; count++){
+  for(int count = 0; count < 160; count++){
     if(count == 0){
       pinMode(BRANCH_ONE_STRIP_PIN,OUTPUT);
       pulseFromNoteOn(BRANCH_STRIP_LED_COUNT / 2 - 4, branch_one_strip.Color(150,150,255), 10);
@@ -360,3 +344,26 @@ void winter_wonderland(){
   }
   branch_one_strip.clear();  
 }
+
+void frosty_the_snowman(){
+  for(int i = 0; i < 2; i++){
+  pinMode(BRANCH_ONE_STRIP_PIN, OUTPUT);
+  pulseFromNoteOn(BRANCH_STRIP_LED_COUNT / 2 - 4, branch_one_strip.Color(150,255,0), 10);
+  pinMode(RING_STRIP_PIN, OUTPUT);
+  theaterChase(195, ring_strip);
+  }
+}
+
+void let_it_snow(){
+  for(int i = 0; i < 15; i ++){
+  pinMode(RING_STRIP_PIN,OUTPUT);
+   create_rings(ring_strip.Color(255,255,255),ring_strip.Color(255,255,255),ring_strip.Color(255,255,255),ring_strip.Color(255,255,255),ring_strip.Color(255,255,255));
+   pinMode(BRANCH_ONE_STRIP_PIN, OUTPUT);
+   branch_one_strip.setBrightness(BRIGHTNESS / 2);
+   pulse_from_note(BRANCH_STRIP_LED_COUNT / 2 - 10, branch_one_strip.Color(255,255,255), 75);  
+  }
+}
+
+void placeholder(){
+   pulseFromNoteOn(BRANCH_STRIP_LED_COUNT / 2 - 4, branch_one_strip.Color(255,255,255), 10);
+ }
