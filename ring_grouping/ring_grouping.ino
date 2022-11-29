@@ -16,8 +16,8 @@
 #define LOWER_RING_START 0
 #define LOWER_RING_SIZE 88
 
-#define LOWER_MIDDLE_START 89
-#define LOWER_MIDDLE_SIZE 70
+#define LOWER_MIDDLE_START 88
+#define LOWER_MIDDLE_SIZE 71
 
 #define MIDDLE_RING_START 158
 #define MIDDLE_RING_SIZE 67
@@ -25,8 +25,8 @@
 #define UPPER_MIDDLE_START 225
 #define UPPER_MIDDLE_SIZE 35
 
-#define TOP_RING_START 261
-#define TOP_RING_SIZE 22
+#define TOP_RING_START 260
+#define TOP_RING_SIZE 23
 
 //Overall brightness of all lights from 0 - 255
 #define BRIGHTNESS 150
@@ -77,13 +77,13 @@ void loop() {
    jingle_bells();
    delay(100);
    deck_the_halls();
-   delay(100);
+   delay(1000);
    most_wonderful_time();
-   delay(100);
+   delay(1000);
    sarajevo();
    delay(100);
    winter_wonderland();
-   delay(100);
+   delay(1000);
    frosty_the_snowman();
    delay(100);
    let_it_snow();
@@ -295,7 +295,7 @@ void jingle_bells(){
 }
 
 void deck_the_halls(){
-  for(int i = 0; i < 142; i++){
+  for(int i = 0; i < 144; i++){
   pinMode(BRANCH_ONE_STRIP_PIN, OUTPUT);
   pulseFromNoteOn(BRANCH_STRIP_LED_COUNT / 2 - 4, branch_one_strip.Color(255,0,0), 8);
   pinMode(RING_STRIP_PIN, OUTPUT);
