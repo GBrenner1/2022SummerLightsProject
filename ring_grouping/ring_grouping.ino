@@ -89,7 +89,7 @@ void loop() {
    let_it_snow();
    delay(100);
    placeholder();
-   delay(202000);
+   delay(173000);
    
 }
 
